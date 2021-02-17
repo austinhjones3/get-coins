@@ -1,9 +1,11 @@
 const prompt = require("prompt-sync")();
+const axios = require("axios");
 const {
   convertCurrency,
   getBuySell,
   getSpotPrice,
   getTime,
+  allCurrencies,
 } = require("./requests");
 
 const processRequests = async () => {
@@ -19,8 +21,10 @@ const processRequests = async () => {
     case "n":
       return console.log(`\nThanks for using GitCoin!`);
     case "1":
-      console.log(`\ncurrency converted`);
+      console.log(await allCurrencies());
       // await convertCurrency();
+      console.log(`\nAbove is a list of world currencies and resources.`);
+
       break;
     case "2":
       console.log(`\nbuy or sell price attained`);
