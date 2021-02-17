@@ -1,7 +1,7 @@
 const axios = require("axios");
 const BASE = `https://api.coinbase.com/v2`;
 
-const convertCurrency = async (currency) => {};
+const getExchangeRates = async (currency) => {};
 
 const getBuySell = async () => {};
 
@@ -9,6 +9,11 @@ const getSpotPrice = async () => {};
 
 const getTime = async () => {};
 
+/**
+ * @function allCurrencies()
+ * @Promise response - calls coinbase API and returns the data of all currencies
+ * @returns {String} - string of currency ID's and names
+ */
 const allCurrencies = async () => {
   const response = await axios.get(`${BASE}/currencies`);
   const dataArr = response.data.data;
@@ -22,7 +27,7 @@ const allCurrencies = async () => {
 
 allCurrencies();
 module.exports = {
-  convertCurrency,
+  getExchangeRates,
   getBuySell,
   getSpotPrice,
   getTime,
