@@ -14,30 +14,36 @@ const processRequests = async () => {
 
   switch (choice) {
     case "n":
-      return "Thanks for using GitCoin.";
+      return console.log(`\nThanks for using GitCoin!`);
     case "1":
-      console.log("\ncurrency converted\n");
+      console.log(`\ncurrency converted`);
       // await convertCurrency();
       break;
     case "2":
-      console.log("\nbuy or sell price attained\n");
+      console.log(`\nbuy or sell price attained`);
       // await getBuySell();
       break;
     case "3":
-      console.log("\nspot price attained\n");
+      console.log(`\nspot price attained`);
       // await getSpotPrice();
       break;
     case "4":
-      console.log("\ntime acquired\n");
+      console.log(`\ntime acquired`);
       // await getTime();
       break;
+    default:
+      console.log(`\nEntry invalid.`);
   }
 
-  console.log("Do you want to make another request to coinbase? (y/n)");
+  console.log(`\nDo you want to make another request to coinbase? (y/n)`);
   choice = prompt();
-  if (choice === "n") return "Thanks for using GitCoin!";
-  return processRequests();
+  switch (choice) {
+    case "y":
+      return processRequests();
+    default:
+      return console.log(`\nThanks for using GitCoin!`);
+  }
 };
 
-console.log(`\nWelcome to GitCoin!`);
+console.log(`\nWelcome to GitCoin!\n`);
 processRequests();
