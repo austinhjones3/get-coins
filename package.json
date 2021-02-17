@@ -2,9 +2,9 @@
   "name": "get-coins",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc --reporter=text mocha tests"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "chai": "^4.3.0",
     "mocha": "^8.3.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prompt-sync": "^4.2.0"
   }
 }
