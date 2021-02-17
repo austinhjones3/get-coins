@@ -1,7 +1,10 @@
-const axios = require("axios");
 const prompt = require("prompt-sync")();
-const {} = require("./requests");
-const BASE = `https://api.coinbase.com/v2`;
+const {
+  convertCurrency,
+  getBuySell,
+  getSpotPrice,
+  getTime,
+} = require("./requests");
 
 const processRequests = async () => {
   console.log(
