@@ -10,9 +10,8 @@ const getSpotPrice = async () => {};
 const getTime = async () => {};
 
 /**
- * @function allCurrencies()
- * @Promise response - calls coinbase API and returns the data of all currencies
- * @returns {String} - string of currency ID's and names
+ * @function allCurrencies() - asynchronous
+ * @returns {String} - string of currency ID's and names to display to the user
  */
 const allCurrencies = async () => {
   const response = await axios.get(`${BASE}/currencies`);
