@@ -18,7 +18,26 @@ const getExchangeRates = async (input = "USD") => {
   return console.log(list);
 };
 
-const getBuySell = async () => {};
+/**
+ * @function getBuySell() - async
+ * @param {String} BTCorETH - a string that is either "BTC" or "ETH" to be
+ * converted to buy/sell prices
+ * @param {String} currency - a string that is a currency other than BTC or ETH
+ * used to convert BTC or ETH into buy/sell prices
+ * @returns {Function} - a console.log of a string that includes the buy/sell prices
+ * of ${BTCorETH} in ${currency}
+ * @example BTC converted to USD buy/sell prices
+ */
+const getBuySell = async (BTCorETH = "BTC", currency = "USD") => {
+  const buy = await axios.get(`${BASE}/prices/${BTCorETH}-${currency}/buy`);
+  const sell = await axios.get(`${BASE}/prices/${BTCorETH}-${currency}/sell`);
+  const buyData = buy.data.data;
+  const sellData = sell.data.data;
+  return console.log(
+    `The current buy/sell prices for ${BTCorETH} in ${currency} are:\n` +
+      `BUY: ${buyData.amount}\nSELL: ${sellData.amount}`
+  );
+};
 
 const getSpotPrice = async () => {};
 
@@ -41,7 +60,7 @@ const allCurrencies = async () => {
   return currencies;
 };
 
-getExchangeRates();
+getBuySell();
 module.exports = {
   getExchangeRates,
   getBuySell,
