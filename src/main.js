@@ -7,14 +7,15 @@ const {
   getTime,
   allCurrencies,
 } = require("./requests");
-
+const { list } = require("../test-data/allCurrencies");
+const listAll = list();
 /**
  * @function processRequests() - async
  * @returns {Function} - the function is recursive and used recursion to run
  * through the menu over and over again if the user wishes to. Else, the function
  * returns a console.log message to signify to the user that the program is ended.
  */
-const processRequests = async () => {
+const processRequests = async (currency = "USD", ETHorBTC = "BTC") => {
   console.log(
     `\nPlease choose one by typing the number:\n1. Get exchange rates of a currency` +
       `\n2. Attain buy and sell price of Bitcoin or Ether` +
@@ -26,27 +27,41 @@ const processRequests = async () => {
   switch (choice) {
     case "n":
       return console.log(`\nThanks for testing my program!`);
+
     case "1":
-      const list = await allCurrencies();
-      // await getExchangeRates();
-      console.log(list);
+      console.log(listAll);
       console.log(`\nAbove is a list of world currencies and resources.`);
+      let currency;
       do {
-        choice = prompt(
+        currency = prompt(
           "Please enter one of the 3 character currency ID's to convert: "
         );
       } while (
-        !list.includes(choice) ||
-        choice.length < 3 ||
-        choice.length > 3
+        !listAll.includes(currency) ||
+        currency.length < 3 ||
+        currency.length > 3
       );
-      await getExchangeRates(choice);
+      await getExchangeRates(currency);
       break;
-    case "2":
-      console.log(`\nEther or Bitcoin? Enter ETH or BTC: `);
 
-      // await getBuySell();
+    case "2":
+      console.log(`\n`);
+      console.log(`Please enter ETH or BTC: `);
+      const ETHorBTC = prompt();
+      switch (ETHorBTC) {
+        case "ETH":
+          await getBuySell(ETHorBTC);
+          break;
+
+        case "BTC":
+          await getBuySell(ETHorBTC);
+          break;
+
+        default:
+          console.log(`\n Invalid entry.`);
+      }
       break;
+
     case "3":
       console.log(`\nspot price attained`);
       // await getSpotPrice();
@@ -60,13 +75,9 @@ const processRequests = async () => {
   }
 
   console.log(`\nDo you want to make another request to coinbase? (y/n)`);
-  choice = prompt();
-  switch (choice) {
-    case "y":
-      return processRequests();
-    default:
-      return console.log(`\nThanks for testing my program!`);
-  }
+  const newReq = prompt();
+  if (newReq === "n") return console.log(`\nThanks for testing my program!`);
+  return processRequests();
 };
 
 console.log(

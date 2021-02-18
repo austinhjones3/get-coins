@@ -28,15 +28,19 @@ const getExchangeRates = async (input = "USD") => {
  * of ${BTCorETH} in ${currency}
  * @example BTC converted to USD buy/sell prices
  */
-const getBuySell = async (BTCorETH = "BTC", currency = "USD") => {
-  const buy = await axios.get(`${BASE}/prices/${BTCorETH}-${currency}/buy`);
-  const sell = await axios.get(`${BASE}/prices/${BTCorETH}-${currency}/sell`);
-  const buyData = buy.data.data;
-  const sellData = sell.data.data;
-  return console.log(
-    `The current buy/sell prices for ${BTCorETH} in ${currency} are:\n` +
-      `BUY: ${buyData.amount}\nSELL: ${sellData.amount}`
-  );
+const getBuySell = async (BTCorETH) => {
+  try {
+    const buy = await axios.get(`${BASE}/prices/${BTCorETH}-USD/buy`);
+    const sell = await axios.get(`${BASE}/prices/${BTCorETH}-USD/sell`);
+    const buyAmt = buy.data.data.amount;
+    const sellAmt = sell.data.data.amount;
+    return console.log(
+      `The current buy/sell prices for ${BTCorETH} in USD are:\n` +
+        `BUY: ${buyAmt}\nSELL: ${sellAmt}`
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const getSpotPrice = async () => {};
