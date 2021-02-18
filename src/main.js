@@ -9,15 +9,15 @@ const {
 } = require("./requests");
 
 /**
- * @function processRequests() - asynchronous
- * @returns {Functions} - the function is recursive and used recursion to run
+ * @function processRequests() - async
+ * @returns {Function} - the function is recursive and used recursion to run
  * through the menu over and over again if the user wishes to. Else, the function
  * returns a console.log message to signify to the user that the program is ended.
  */
 const processRequests = async () => {
   console.log(
     `\nPlease choose one by typing the number:\n1. Get exchange rates of a currency` +
-      `\n2. Attain buy or sell price of Bitcoin or Ether` +
+      `\n2. Attain buy and sell price of Bitcoin or Ether` +
       `\n3. Get spot price of Bitcoin\n4. Get the current time` +
       `\nAlternatively, enter "n" to exit.`
   );
@@ -27,13 +27,24 @@ const processRequests = async () => {
     case "n":
       return console.log(`\nThanks for testing my program!`);
     case "1":
-      console.log(await allCurrencies());
+      const list = await allCurrencies();
       // await getExchangeRates();
+      console.log(list);
       console.log(`\nAbove is a list of world currencies and resources.`);
-      choice = prompt("Please enter one of the currency ID's to convert: ");
+      do {
+        choice = prompt(
+          "Please enter one of the 3 character currency ID's to convert: "
+        );
+      } while (
+        !list.includes(choice) ||
+        choice.length < 3 ||
+        choice.length > 3
+      );
+      await getExchangeRates(choice);
       break;
     case "2":
-      console.log(`\nbuy or sell price attained`);
+      console.log(`\nEther or Bitcoin? Enter ETH or BTC: `);
+
       // await getBuySell();
       break;
     case "3":

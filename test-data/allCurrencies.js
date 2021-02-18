@@ -1,6 +1,6 @@
 const list = () => {
   return (
-    `(AED) United Arab Emirates Dirham\n` +
+    `\n(AED) United Arab Emirates Dirham\n` +
     `(AFN) Afghan Afghani\n` +
     `(ALL) Albanian Lek\n` +
     `(AMD) Armenian Dram\n` +
