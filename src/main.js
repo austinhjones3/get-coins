@@ -15,6 +15,7 @@ const listAll = list();
  * returns a console.log message to signify to the user that the program is ended.
  */
 const processRequests = async () => {
+  // main menu
   console.log(
     `\nPlease choose one by typing the number:\n1. Get exchange rates of a currency` +
       `\n2. Attain buy and sell price of Bitcoin or Ether in USD` +
@@ -45,16 +46,22 @@ const processRequests = async () => {
       console.log(`\nEntry invalid.`);
   }
 
+  // user decides to make another request or not
   console.log(`\nDo you want to make another request to coinbase? (y/n)`);
   const newReq = prompt();
   if (newReq === "n") return console.log(`\nThanks for testing my program!`);
   return processRequests();
 };
 
+/**
+ * @function _handleOne() - handles request number 1 in processRequests()
+ * @returns {Function} - returns a promise resolve or reject for the exchange rates
+ */
 const _handleOne = async () => {
   console.log(listAll);
   console.log(`\nAbove is a list of world currencies and resources.`);
   let currency;
+
   do {
     currency = prompt(
       "Please enter one of the 3 character currency ID's to convert: "
@@ -64,10 +71,14 @@ const _handleOne = async () => {
     currency.length < 3 ||
     currency.length > 3
   );
-  const result = await getExchangeRates(currency);
-  return result;
+
+  return await getExchangeRates(currency);
 };
 
+/**
+ * @function _handleTwo() - handles request number 2 in processRequests()
+ * @returns {Function} - uses recursion or returns promise resolution or rejection
+ */
 const _handleTwo = async () => {
   console.log(`\nPlease enter ETH or BTC: `);
   const ETHorBTC = prompt();
@@ -84,6 +95,10 @@ const _handleTwo = async () => {
   }
 };
 
+/**
+ * @function _handleThree() - handles request number 3 in processRequests()
+ * @returns {Function} - uses recursion or returns promise resolution or rejection
+ */
 const _handleThree = async () => {
   console.log(`\nPlease enter a date in the format of YYYY-MM-DD: `);
   const date = prompt();
@@ -92,11 +107,17 @@ const _handleThree = async () => {
   return _handleThree();
 };
 
+/**
+ * @function _handleFour() - handles request number 4 in processRequests()
+ * @returns {Function} = console.log of the time
+ */
 const _handleFour = async () => {
   const time = await getTime();
   return console.log(`\nServer time:\nDATE: ${time.date}\nTIME: ${time.time}`);
 };
+
 console.log(
   `\nWelcome and thank you for using my section 1 review program, get-coins!\n`
 );
+// main call
 processRequests();
