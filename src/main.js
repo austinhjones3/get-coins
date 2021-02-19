@@ -1,5 +1,4 @@
 const prompt = require("prompt-sync")();
-const axios = require("axios");
 const {
   getExchangeRates,
   getBuySell,
