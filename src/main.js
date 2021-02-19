@@ -40,8 +40,7 @@ const processRequests = async () => {
       await _handleThree();
       break;
     case "4":
-      console.log(`\ntime acquired`);
-      // await getTime();
+      await _handleFour();
       break;
     default:
       console.log(`\nEntry invalid.`);
@@ -90,10 +89,14 @@ const _handleThree = async () => {
   console.log(`\nPlease enter a date in the format of YYYY-MM-DD: `);
   const date = prompt();
   if (date.length === 10 && date.includes("-")) return await getSpotPrice(date);
-  if (data.length < 10) return await getSpotPrice();
+  console.log("Invalid entry.");
   return _handleThree();
 };
 
+const _handleFour = async () => {
+  const time = await getTime();
+  return console.log(`\nServer time:\nDATE: ${time.date}\nTIME: ${time.time}`);
+};
 console.log(
   `\nWelcome and thank you for using my section 1 review program, get-coins!\n`
 );

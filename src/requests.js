@@ -8,14 +8,20 @@ const BASE = `https://api.coinbase.com/v2`;
  * @returns {Function} - a console.log of the completed string of exchange rates
  */
 const getExchangeRates = async (input = "USD") => {
-  let list = `\nThe exchange rates for ${input} are:`;
-  const response = await axios.get(`${BASE}/exchange-rates?currency=${input}`);
-  const rates = response.data.data.rates;
-  // loop through the object to format the exchange rates nicely for the user
-  for (const key in rates) {
-    list += `\n${key}: ${parseFloat(rates[key]).toFixed(3)}`;
+  try {
+    let list = `\nThe exchange rates for ${input} are:`;
+    const response = await axios.get(
+      `${BASE}/exchange-rates?currency=${input}`
+    );
+    const rates = response.data.data.rates;
+    // loop through the object to format the exchange rates nicely for the user
+    for (const key in rates) {
+      list += `\n${key}: ${parseFloat(rates[key]).toFixed(3)}`;
+    }
+    return console.log(list);
+  } catch (error) {
+    console.log(error.message);
   }
-  return console.log(list);
 };
 
 /**
@@ -53,7 +59,18 @@ const getSpotPrice = async (date) => {
   }
 };
 
-const getTime = async () => {};
+const getTime = async () => {
+  try {
+    const response = await axios.get(`${BASE}/time`);
+    const timeData = response.data.data.iso;
+    const date = timeData.substr(0, 10);
+    const time = timeData.substr(11, 8);
+    return { date, time };
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   getExchangeRates,
   getBuySell,
