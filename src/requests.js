@@ -58,7 +58,8 @@ const getSpotPrice = async (date) => {
     console.log(error.message);
   }
 };
-
+//
+//
 const getTime = async () => {
   try {
     const response = await axios.get(`${BASE}/time`);
