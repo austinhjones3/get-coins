@@ -5,21 +5,21 @@ const {
   getBuySell,
   getSpotPrice,
   getTime,
-  allCurrencies,
 } = require("./requests");
 const { list } = require("../test-data/allCurrencies");
 const listAll = list();
+
 /**
  * @function processRequests() - async
  * @returns {Function} - the function is recursive and used recursion to run
  * through the menu over and over again if the user wishes to. Else, the function
  * returns a console.log message to signify to the user that the program is ended.
  */
-const processRequests = async (currency = "USD", ETHorBTC = "BTC") => {
+const processRequests = async () => {
   console.log(
     `\nPlease choose one by typing the number:\n1. Get exchange rates of a currency` +
-      `\n2. Attain buy and sell price of Bitcoin or Ether` +
-      `\n3. Get spot price of Bitcoin\n4. Get the current time` +
+      `\n2. Attain buy and sell price of Bitcoin or Ether in USD` +
+      `\n3. Get spot price of Bitcoin in USD\n4. Get the current server time` +
       `\nAlternatively, enter "n" to exit.`
   );
   let choice = prompt();
@@ -29,42 +29,15 @@ const processRequests = async (currency = "USD", ETHorBTC = "BTC") => {
       return console.log(`\nThanks for testing my program!`);
 
     case "1":
-      console.log(listAll);
-      console.log(`\nAbove is a list of world currencies and resources.`);
-      let currency;
-      do {
-        currency = prompt(
-          "Please enter one of the 3 character currency ID's to convert: "
-        );
-      } while (
-        !listAll.includes(currency) ||
-        currency.length < 3 ||
-        currency.length > 3
-      );
-      await getExchangeRates(currency);
+      await _handleOne();
       break;
 
     case "2":
-      console.log(`\n`);
-      console.log(`Please enter ETH or BTC: `);
-      const ETHorBTC = prompt();
-      switch (ETHorBTC) {
-        case "ETH":
-          await getBuySell(ETHorBTC);
-          break;
-
-        case "BTC":
-          await getBuySell(ETHorBTC);
-          break;
-
-        default:
-          console.log(`\n Invalid entry.`);
-      }
+      await _handleTwo();
       break;
 
     case "3":
-      console.log(`\nspot price attained`);
-      // await getSpotPrice();
+      await _handleThree();
       break;
     case "4":
       console.log(`\ntime acquired`);
@@ -78,6 +51,47 @@ const processRequests = async (currency = "USD", ETHorBTC = "BTC") => {
   const newReq = prompt();
   if (newReq === "n") return console.log(`\nThanks for testing my program!`);
   return processRequests();
+};
+
+const _handleOne = async () => {
+  console.log(listAll);
+  console.log(`\nAbove is a list of world currencies and resources.`);
+  let currency;
+  do {
+    currency = prompt(
+      "Please enter one of the 3 character currency ID's to convert: "
+    ).toUpperCase();
+  } while (
+    !listAll.includes(currency) ||
+    currency.length < 3 ||
+    currency.length > 3
+  );
+  const result = await getExchangeRates(currency);
+  return result;
+};
+
+const _handleTwo = async () => {
+  console.log(`\nPlease enter ETH or BTC: `);
+  const ETHorBTC = prompt();
+  switch (ETHorBTC) {
+    case "ETH":
+      return await getBuySell(ETHorBTC);
+
+    case "BTC":
+      return await getBuySell(ETHorBTC);
+
+    default:
+      console.log("Invalid entry.");
+      return _handleTwo();
+  }
+};
+
+const _handleThree = async () => {
+  console.log(`\nPlease enter a date in the format of YYYY-MM-DD: `);
+  const date = prompt();
+  if (date.length === 10 && date.includes("-")) return await getSpotPrice(date);
+  if (data.length < 10) return await getSpotPrice();
+  return _handleThree();
 };
 
 console.log(

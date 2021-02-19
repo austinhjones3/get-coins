@@ -22,8 +22,6 @@ const getExchangeRates = async (input = "USD") => {
  * @function getBuySell() - async
  * @param {String} BTCorETH - a string that is either "BTC" or "ETH" to be
  * converted to buy/sell prices
- * @param {String} currency - a string that is a currency other than BTC or ETH
- * used to convert BTC or ETH into buy/sell prices
  * @returns {Function} - a console.log of a string that includes the buy/sell prices
  * of ${BTCorETH} in ${currency}
  * @example BTC converted to USD buy/sell prices
@@ -35,40 +33,30 @@ const getBuySell = async (BTCorETH) => {
     const buyAmt = buy.data.data.amount;
     const sellAmt = sell.data.data.amount;
     return console.log(
-      `The current buy/sell prices for ${BTCorETH} in USD are:\n` +
-        `BUY: ${buyAmt}\nSELL: ${sellAmt}`
+      `\nThe current buy/sell prices for ${BTCorETH} in USD are:\n` +
+        `BUY: $${buyAmt}\nSELL: $${sellAmt}`
     );
   } catch (error) {
     console.log(error.message);
   }
 };
 
-const getSpotPrice = async () => {};
-
-const getTime = async () => {};
-
-/**
- * @function allCurrencies() - async
- * @returns {String} - string of currency ID's and names to display to the user
- */
-const allCurrencies = async () => {
-  const response = await axios.get(`${BASE}/currencies`);
-  // the array is wrapped in an object key called data inside of the higher data key
-  const dataArr = response.data.data;
-  // formatted nice and neat in a string for the user
-  let currencies = dataArr.reduce((list, element) => {
-    list += `(${element.id}) ${element.name}\n`;
-    return list;
-  }, `\n`);
-  currencies += `(BTC) Bitcoin\n(ETH) Ether\n`;
-  return currencies;
+const getSpotPrice = async (date) => {
+  try {
+    const response = await axios.get(`${BASE}/prices/spot?date=${date}`);
+    const spotData = response.data.data;
+    return console.log(
+      `\nThe spot price of Bitcoin on ${date} is $${spotData.amount} ${spotData.currency}.`
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-getBuySell();
+const getTime = async () => {};
 module.exports = {
   getExchangeRates,
   getBuySell,
   getSpotPrice,
   getTime,
-  allCurrencies,
 };
