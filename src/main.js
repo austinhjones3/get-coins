@@ -81,13 +81,13 @@ const _handleOne = async () => {
  */
 const _handleTwo = async () => {
   console.log(`\nPlease enter ETH or BTC: `);
-  const ETHorBTC = prompt();
-  switch (ETHorBTC) {
+  const ethOrBtc = prompt();
+  switch (ethOrBtc) {
     case "ETH":
-      return await getBuySell(ETHorBTC);
+      return await getBuySell(ethOrBtc);
 
     case "BTC":
-      return await getBuySell(ETHorBTC);
+      return await getBuySell(ethOrBtc);
 
     default:
       console.log("Invalid entry.");
