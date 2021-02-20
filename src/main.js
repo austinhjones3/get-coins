@@ -5,7 +5,7 @@ const {
   getSpotPrice,
   getTime,
 } = require("./requests");
-const { list } = require("../test-data/allCurrencies");
+const { list } = require("../data/allCurrencies");
 const listAll = list();
 
 /**
