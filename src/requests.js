@@ -47,6 +47,12 @@ const getBuySell = async (BTCorETH) => {
   }
 };
 
+/**
+ * @function getSpotPrice()
+ * @param {String} date - input by the user to specify which spot price to attain
+ * @returns {Function} - console.log of a string containing the spot price of BTC
+ * from the specified date.
+ */
 const getSpotPrice = async (date) => {
   try {
     const response = await axios.get(`${BASE}/prices/spot?date=${date}`);
@@ -59,6 +65,11 @@ const getSpotPrice = async (date) => {
   }
 };
 
+/**
+ * @function getTime()
+ * @returns {Object} - an object containing two keys, the server date
+ * and the server time.
+ */
 const getTime = async () => {
   try {
     const response = await axios.get(`${BASE}/time`);
