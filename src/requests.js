@@ -60,6 +60,7 @@ const getSpotPrice = async (date) => {
 };
 
 const getTime = async () => {
+  //
   try {
     const response = await axios.get(`${BASE}/time`);
     const timeData = response.data.data.iso;
